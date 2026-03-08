@@ -28,6 +28,6 @@ The example consumers in `examples/node-consumer`, `examples/python-consumer`, `
 
 ## Follow-up work
 
-The first improvement after v0 should be self-validation in GitHub Actions for changed reusable workflows and examples. That can remain small: syntax validation, contract smoke checks, and a release gate.
+The next improvement after the current baseline should be promoting Terraform, if it stays lightweight enough for a real example-backed contract test. Playwright should be evaluated only after that using the same standard.
 
-That validation is now in place via `.github/workflows/repo-ci.yaml` for the Node, Python, Go, and Docker consumers, with the remaining workflow types documented honestly until equally lightweight examples are justified.
+That validation is now in place via `.github/workflows/repo-ci.yaml` for the Node, Python, Go, and Docker consumers, with Terraform and Playwright still documented honestly until equally lightweight examples are justified.

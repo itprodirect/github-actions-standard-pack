@@ -93,6 +93,16 @@ See [docs/consuming-playwright-workflow.md](docs/consuming-playwright-workflow.m
 - Implemented and documented only in v0: Terraform and Playwright.
 - No preview or stub workflows are published in v0.
 
+## Session Closeout
+
+This repository started as the reusable workflow standard pack v0 scaffold. The current baseline is stricter and more honest than that initial cut:
+
+- repo CI now contract-tests Node, Python, Go, and Docker against local example consumers
+- local validation cleanup was tightened so successful runs do not leave repo junk behind
+- docs now distinguish clearly between contract-tested workflows and documented-only workflows
+
+If you are picking this repo up cold, the next decision is whether Terraform can be promoted to lightweight contract-tested status without making the repo heavier than it needs to be. Playwright should be evaluated after that using the same standard.
+
 ## Security posture
 
 - Default workflow permissions are `contents: read`.
