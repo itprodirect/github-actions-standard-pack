@@ -27,7 +27,7 @@ Supporting repo assets:
 - Repo CI that exercises the reusable workflows against local example consumers
 - A minimal release workflow for publishing GitHub releases from version tags
 - Issue templates and a pull request template
-- Consumer examples for Node and Python
+- Consumer examples for Node, Python, and Go
 - ADR, architecture, security, test strategy, roadmap, and runbook docs
 
 ## Consumption model
@@ -67,17 +67,25 @@ See [docs/consuming-python-workflow.md](docs/consuming-python-workflow.md).
 
 Runs lint, test, and build with `actions/setup-go` caching.
 
+See [docs/consuming-go-workflow.md](docs/consuming-go-workflow.md).
+
 ### Docker
 
 Builds a Docker image locally on GitHub-hosted runners. Publishing is intentionally not baked in for v0. Consumers must add registry-specific auth later, with explicit permissions review.
+
+See [docs/consuming-docker-workflow.md](docs/consuming-docker-workflow.md).
 
 ### Terraform
 
 Runs `fmt -check`, `init -backend=false`, and `validate`. `plan` is opt-in and off by default.
 
+See [docs/consuming-terraform-workflow.md](docs/consuming-terraform-workflow.md).
+
 ### Playwright
 
 Provides a small reusable smoke-test skeleton for browser automation without creating a full testing framework inside this repo.
+
+See [docs/consuming-playwright-workflow.md](docs/consuming-playwright-workflow.md).
 
 ## Security posture
 
@@ -99,8 +107,9 @@ See [docs/versioning.md](docs/versioning.md). The first published ref is `v0.1.0
 
 - [examples/node-consumer/.github/workflows/ci.yaml](examples/node-consumer/.github/workflows/ci.yaml)
 - [examples/python-consumer/.github/workflows/ci.yaml](examples/python-consumer/.github/workflows/ci.yaml)
+- [examples/go-consumer/.github/workflows/ci.yaml](examples/go-consumer/.github/workflows/ci.yaml)
 
-These examples are the baseline contract tests for v0. If they drift from the reusable workflows, the repo is already losing value.
+These examples are the baseline contract tests for the most common v0 languages. If they drift from the reusable workflows, the repo is already losing value.
 
 ## Repo validation
 
@@ -109,3 +118,7 @@ This repository also validates itself with [`.github/workflows/repo-ci.yaml`](.g
 - runs policy checks for permissions, action pinning, and accidental OIDC creep
 - calls the local Node reusable workflow against `examples/node-consumer`
 - calls the local Python reusable workflow against `examples/python-consumer`
+- calls the local Go reusable workflow against `examples/go-consumer`
+
+Maintainers can also run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1` for a local policy and example validation pass before opening a pull request.
+

@@ -4,10 +4,16 @@
 .terraform/
 *.tfplan
 .pytest_cache/
+.ruff_cache/
 __pycache__/
 *.pyc
+.coverage
+coverage.xml
+*.egg-info/
 .venv/
 venv/
+.tmp-validate-venv/
 node_modules/
 dist/
 build/
+

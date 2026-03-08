@@ -9,7 +9,7 @@
 ## Next sensible steps
 
 - Cut versioned releases and switch examples to immutable refs
-- Add a small self-test strategy for workflow syntax and example contract validation
+- Expand example-backed validation beyond the initial Node, Python, and Go consumers only when the added fixtures stay lightweight
 - Add a CodeQL companion workflow pattern for consumers
 - Add release notes automation once change volume justifies it
 
@@ -20,3 +20,4 @@
 - monorepo generators
 - custom runner fleets
 - opinionated release pipelines for applications
+

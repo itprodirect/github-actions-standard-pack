@@ -2,6 +2,12 @@
 
 ## Routine maintenance
 
+### Validate locally before a PR
+
+1. Run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1`.
+2. Review any generated artifacts or cache directories before committing.
+3. If branch protection is updated, use the exact check names GitHub reports rather than the caller job ids for reusable-workflow jobs.
+
 ### Refresh action pins
 
 1. Review Dependabot pull requests for GitHub Actions updates.
@@ -24,3 +30,4 @@
 3. Check whether the issue is a contract bug, doc gap, or unsupported edge case.
 4. Fix the workflow and its docs together.
 5. Note any breaking behavior in `CHANGELOG.md`.
+
