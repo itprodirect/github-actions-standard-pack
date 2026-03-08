@@ -1,0 +1,20 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-docker-build.yaml@v0.1.0
+    with:
+      image_name: example/docker-consumer
+      dockerfile: Dockerfile
+      context: .
+      push: false
+      platforms: linux/amd64

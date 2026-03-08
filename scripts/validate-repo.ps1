@@ -17,6 +17,11 @@ function Invoke-NativeStep {
     }
 }
 
+function Test-DockerDaemon {
+    & cmd /c "docker version --format {{.Server.Version}} 1>nul 2>nul" | Out-Null
+    return ($LASTEXITCODE -eq 0)
+}
+
 $repoRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $repoRoot
 
@@ -53,6 +58,8 @@ if ($PolicyOnly) {
 $nodeModulesPath = Join-Path $repoRoot "examples/node-consumer/node_modules"
 $goCachePath = Join-Path $repoRoot ".tmp-go-cache"
 $goModCachePath = Join-Path $repoRoot ".tmp-go-modcache"
+$dockerValidationTag = "github-actions-standard-pack/docker-consumer:local-validation"
+$dockerValidationRan = $false
 
 $env:GOCACHE = $goCachePath
 $env:GOMODCACHE = $goModCachePath
@@ -82,6 +89,19 @@ try {
     Invoke-NativeStep "go test ./..." { go test ./... }
     Invoke-NativeStep "go build ./..." { go build ./... }
     Pop-Location
+
+    if (Test-DockerDaemon) {
+        Write-Host "Running Docker example checks..."
+        Push-Location "examples/docker-consumer"
+        Invoke-NativeStep "docker build --file Dockerfile --platform linux/amd64 --tag $dockerValidationTag ." {
+            docker build --file Dockerfile --platform linux/amd64 --tag $dockerValidationTag .
+        }
+        $dockerValidationRan = $true
+        Pop-Location
+    }
+    else {
+        Write-Warning "Skipping Docker example checks because a Docker daemon is not available. Repo CI still exercises the Docker consumer contract."
+    }
 }
 finally {
     while ((Get-Location).Path -ne $repoRoot) {
@@ -110,6 +130,10 @@ finally {
 
     Get-ChildItem "examples/python-consumer" -Recurse -Directory -Force -Filter "__pycache__" -ErrorAction SilentlyContinue |
         Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+
+    if ($dockerValidationRan) {
+        & docker image rm -f $dockerValidationTag 1>$null 2>$null
+    }
 }
 
 Write-Host "Local validation passed."

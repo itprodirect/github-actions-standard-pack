@@ -81,3 +81,11 @@ jobs:
       build_command: go build ./...
       working_directory: examples/go-consumer
 
+  docker-example:
+    uses: ./.github/workflows/reusable-docker-build.yaml
+    with:
+      image_name: github-actions-standard-pack/docker-consumer
+      dockerfile: examples/docker-consumer/Dockerfile
+      context: examples/docker-consumer
+      push: false
+      platforms: linux/amd64

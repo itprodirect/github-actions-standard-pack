@@ -31,7 +31,7 @@ jobs:
   build:
     uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-docker-build.yaml@v0.1.0
     with:
-      image_name: ghcr.io/example-org/example-app
+      image_name: example/docker-consumer
       dockerfile: Dockerfile
       context: .
       push: false
@@ -42,4 +42,5 @@ jobs:
 
 - `push: true` is intentionally not implemented in v0 and will fail with guidance rather than assuming registry credentials.
 - Multi-platform builds are intentionally out of scope for v0. `platforms` must contain a single platform value.
-- This workflow is implemented and documented in v0, but it is not exercised by a repo CI example consumer yet.
+- This workflow is exercised in repo CI via `examples/docker-consumer`.
+- Local validation builds the same example when a Docker daemon is available, and otherwise skips that step with guidance.
