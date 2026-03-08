@@ -41,4 +41,4 @@ jobs:
 
 - The workflow enables module caching through `actions/setup-go`.
 - Keep any extra tooling explicit in the consumer repo rather than expanding the shared workflow contract.
-
+- This workflow is exercised in repo CI via `examples/go-consumer`.

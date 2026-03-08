@@ -13,7 +13,10 @@ coverage.xml
 .venv/
 venv/
 .tmp-validate-venv/
+.tmp-go-cache/
+.tmp-go-modcache/
+examples/go-consumer/.tmp-go-cache/
+examples/go-consumer/.tmp-go-modcache/
 node_modules/
 dist/
 build/
-

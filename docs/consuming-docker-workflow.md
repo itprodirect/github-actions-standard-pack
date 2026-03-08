@@ -42,4 +42,4 @@ jobs:
 
 - `push: true` is intentionally not implemented in v0 and will fail with guidance rather than assuming registry credentials.
 - Multi-platform builds are intentionally out of scope for v0. `platforms` must contain a single platform value.
-
+- This workflow is implemented and documented in v0, but it is not exercised by a repo CI example consumer yet.

@@ -40,4 +40,4 @@ jobs:
 
 - The workflow installs Chromium with system dependencies on the runner.
 - Keep project-specific browser config, traces, and test selection in the consuming repository.
-
+- This workflow is implemented and documented in v0, but it is not exercised by a repo CI example consumer yet.

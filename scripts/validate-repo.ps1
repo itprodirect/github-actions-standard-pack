@@ -3,6 +3,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$env:PYTHONDONTWRITEBYTECODE = "1"
 
 function Invoke-NativeStep {
     param(
@@ -94,12 +95,21 @@ finally {
     foreach ($path in @(
         $goCachePath,
         $goModCachePath,
-        "examples/python-consumer/dist"
+        "examples/go-consumer/.tmp-go-cache",
+        "examples/go-consumer/.tmp-go-modcache",
+        "examples/python-consumer/.pytest_cache",
+        "examples/python-consumer/.ruff_cache",
+        "examples/python-consumer/build",
+        "examples/python-consumer/dist",
+        "examples/python-consumer/src/python_consumer.egg-info"
     )) {
         if (Test-Path $path) {
             Remove-Item -Recurse -Force $path
         }
     }
+
+    Get-ChildItem "examples/python-consumer" -Recurse -Directory -Force -Filter "__pycache__" -ErrorAction SilentlyContinue |
+        Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
 }
 
 Write-Host "Local validation passed."

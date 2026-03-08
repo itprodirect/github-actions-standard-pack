@@ -46,3 +46,4 @@ jobs:
 - `package_manager` must be `npm`, `pnpm`, or `yarn`.
 - The workflow enables built-in dependency caching through `actions/setup-node`.
 - `pnpm` and `yarn` consumers rely on Corepack in the runner image.
+- This workflow is exercised in repo CI via `examples/node-consumer`.

@@ -24,7 +24,7 @@ Supporting repo assets:
 
 - Dependabot baseline for GitHub Actions, npm, and pip
 - CODEOWNERS for repository ownership clarity
-- Repo CI that exercises the reusable workflows against local example consumers
+- Repo CI that exercises selected reusable workflows against local example consumers
 - A minimal release workflow for publishing GitHub releases from version tags
 - Issue templates and a pull request template
 - Consumer examples for Node, Python, and Go
@@ -87,6 +87,12 @@ Provides a small reusable smoke-test skeleton for browser automation without cre
 
 See [docs/consuming-playwright-workflow.md](docs/consuming-playwright-workflow.md).
 
+## Validation Coverage
+
+- Contract-tested in repo CI: Node, Python, and Go.
+- Implemented and documented only in v0: Docker, Terraform, and Playwright.
+- No preview or stub workflows are published in v0.
+
 ## Security posture
 
 - Default workflow permissions are `contents: read`.
@@ -109,7 +115,7 @@ See [docs/versioning.md](docs/versioning.md). The first published ref is `v0.1.0
 - [examples/python-consumer/.github/workflows/ci.yaml](examples/python-consumer/.github/workflows/ci.yaml)
 - [examples/go-consumer/.github/workflows/ci.yaml](examples/go-consumer/.github/workflows/ci.yaml)
 
-These examples are the baseline contract tests for the most common v0 languages. If they drift from the reusable workflows, the repo is already losing value.
+These examples are the baseline contract tests for the v0 workflows that currently have repo-backed examples. If they drift from the reusable workflows, the repo is already losing value.
 
 ## Repo validation
 
@@ -121,4 +127,3 @@ This repository also validates itself with [`.github/workflows/repo-ci.yaml`](.g
 - calls the local Go reusable workflow against `examples/go-consumer`
 
 Maintainers can also run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1` for a local policy and example validation pass before opening a pull request.
-

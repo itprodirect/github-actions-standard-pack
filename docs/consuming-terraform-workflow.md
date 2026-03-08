@@ -38,4 +38,4 @@ jobs:
 
 - The workflow runs `fmt`, `init -backend=false`, and `validate` by default.
 - `run_plan` is opt-in because v0 does not assume cloud credentials, backends, or provider-specific auth.
-
+- This workflow is implemented and documented in v0, but it is not exercised by a repo CI example consumer yet.
