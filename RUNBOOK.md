@@ -5,7 +5,7 @@
 ### Validate locally before a PR
 
 1. Run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1`.
-2. The script validates policy plus the Node, Python, and Go example consumers.
+2. The script validates policy plus the Node, Python, and Go example consumers, and it builds the Docker example when a Docker daemon is available.
 3. Validation temp output should stay in ignored locations and be removed on success.
 4. If branch protection is updated, use the exact check names GitHub reports rather than the caller job ids for reusable-workflow jobs.
 
@@ -27,8 +27,8 @@
 ### Triage a workflow issue
 
 1. Reproduce with the smallest example consumer possible.
-2. Check whether `.github/workflows/repo-ci.yaml` failed on the Node, Python, or Go example jobs or the policy checks.
-3. For Docker, Terraform, or Playwright, treat the consumer docs as the current v0 contract and reproduce with a minimal repo-specific caller.
+2. Check whether `.github/workflows/repo-ci.yaml` failed on the Node, Python, Go, or Docker example jobs or the policy checks.
+3. For Terraform or Playwright, treat the consumer docs as the current v0 contract and reproduce with a minimal repo-specific caller.
 4. Check whether the issue is a contract bug, doc gap, or unsupported edge case.
 5. Fix the workflow and its docs together.
 6. Note any breaking behavior in `CHANGELOG.md`.

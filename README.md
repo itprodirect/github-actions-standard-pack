@@ -27,7 +27,7 @@ Supporting repo assets:
 - Repo CI that exercises selected reusable workflows against local example consumers
 - A minimal release workflow for publishing GitHub releases from version tags
 - Issue templates and a pull request template
-- Consumer examples for Node, Python, and Go
+- Consumer examples for Node, Python, Go, and Docker
 - ADR, architecture, security, test strategy, roadmap, and runbook docs
 
 ## Consumption model
@@ -89,8 +89,8 @@ See [docs/consuming-playwright-workflow.md](docs/consuming-playwright-workflow.m
 
 ## Validation Coverage
 
-- Contract-tested in repo CI: Node, Python, and Go.
-- Implemented and documented only in v0: Docker, Terraform, and Playwright.
+- Contract-tested in repo CI: Node, Python, Go, and Docker.
+- Implemented and documented only in v0: Terraform and Playwright.
 - No preview or stub workflows are published in v0.
 
 ## Security posture
@@ -114,6 +114,7 @@ See [docs/versioning.md](docs/versioning.md). The first published ref is `v0.1.0
 - [examples/node-consumer/.github/workflows/ci.yaml](examples/node-consumer/.github/workflows/ci.yaml)
 - [examples/python-consumer/.github/workflows/ci.yaml](examples/python-consumer/.github/workflows/ci.yaml)
 - [examples/go-consumer/.github/workflows/ci.yaml](examples/go-consumer/.github/workflows/ci.yaml)
+- [examples/docker-consumer/.github/workflows/ci.yaml](examples/docker-consumer/.github/workflows/ci.yaml)
 
 These examples are the baseline contract tests for the v0 workflows that currently have repo-backed examples. If they drift from the reusable workflows, the repo is already losing value.
 
@@ -125,5 +126,6 @@ This repository also validates itself with [`.github/workflows/repo-ci.yaml`](.g
 - calls the local Node reusable workflow against `examples/node-consumer`
 - calls the local Python reusable workflow against `examples/python-consumer`
 - calls the local Go reusable workflow against `examples/go-consumer`
+- calls the local Docker reusable workflow against `examples/docker-consumer`
 
-Maintainers can also run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1` for a local policy and example validation pass before opening a pull request.
+Maintainers can also run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1` for a local policy and example validation pass before opening a pull request. The Docker step runs when a Docker daemon is available.
