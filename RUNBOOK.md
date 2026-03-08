@@ -13,13 +13,14 @@
 
 1. Confirm examples still reflect the published workflow contracts.
 2. Update `CHANGELOG.md`.
-3. Tag the repository using the versioning rules in `docs/versioning.md`.
-4. Announce the new immutable ref for downstream consumers.
+3. Create and push a version tag using the rules in `docs/versioning.md`.
+4. Let `.github/workflows/release.yaml` publish the GitHub release for that tag.
+5. Announce the new immutable ref for downstream consumers.
 
 ### Triage a workflow issue
 
 1. Reproduce with the smallest example consumer possible.
 2. Check whether `.github/workflows/repo-ci.yaml` failed on the local example jobs or policy checks.
-2. Check whether the issue is a contract bug, doc gap, or unsupported edge case.
-3. Fix the workflow and its docs together.
-4. Note any breaking behavior in `CHANGELOG.md`.
+3. Check whether the issue is a contract bug, doc gap, or unsupported edge case.
+4. Fix the workflow and its docs together.
+5. Note any breaking behavior in `CHANGELOG.md`.

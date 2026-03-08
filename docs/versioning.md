@@ -13,6 +13,7 @@ This repository should use semantic versioning for published workflow contracts.
 - prefer immutable refs in downstream repos
 - use release tags for normal adoption
 - use a full commit SHA for strict change control
+- `v0.1.0` is the first published baseline tag for this repository
 
 ## Breaking change rule
 

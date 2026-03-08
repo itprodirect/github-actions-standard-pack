@@ -23,7 +23,9 @@ Reusable workflows under `.github/workflows/`:
 Supporting repo assets:
 
 - Dependabot baseline for GitHub Actions, npm, and pip
+- CODEOWNERS for repository ownership clarity
 - Repo CI that exercises the reusable workflows against local example consumers
+- A minimal release workflow for publishing GitHub releases from version tags
 - Issue templates and a pull request template
 - Consumer examples for Node and Python
 - ADR, architecture, security, test strategy, roadmap, and runbook docs
@@ -35,7 +37,7 @@ Downstream repositories call these workflows with `workflow_call`.
 ```yaml
 jobs:
   ci:
-    uses: your-org/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@main
+    uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@v0.1.0
     with:
       node_version: "22"
       package_manager: npm
@@ -45,7 +47,7 @@ jobs:
       build_command: npm run build
 ```
 
-Replace `your-org` and `@main` with your real owner and an immutable reference. For real consumption, prefer a release tag or commit SHA after the first release is cut.
+Replace `itprodirect` with your real owner only if you fork this repository. Prefer a release tag or commit SHA over a floating branch reference.
 
 ## Available workflows
 
@@ -91,7 +93,7 @@ See [SECURITY.md](SECURITY.md) and [docs/security-model.md](docs/security-model.
 
 Workflow contracts are versioned intentionally. Any breaking input or behavior change should trigger a major version bump and supporting docs update.
 
-See [docs/versioning.md](docs/versioning.md).
+See [docs/versioning.md](docs/versioning.md). The first published ref is `v0.1.0`.
 
 ## Example consumers
 

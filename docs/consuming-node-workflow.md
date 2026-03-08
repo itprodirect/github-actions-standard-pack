@@ -4,9 +4,9 @@
 
 Use:
 
-`your-org/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@<ref>`
+`itprodirect/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@v0.1.0`
 
-Prefer an immutable tag or commit SHA once this repository starts publishing releases.
+Prefer an immutable tag or commit SHA.
 
 ## Supported inputs
 
@@ -31,7 +31,7 @@ on:
 
 jobs:
   ci:
-    uses: your-org/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@main
+    uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@v0.1.0
     with:
       node_version: "22"
       package_manager: npm

@@ -18,3 +18,4 @@ This repo should stay boring, explicit, and reusable. Contributions should impro
 - describe any permissions or auth changes
 - note whether the change is backward compatible
 - update or add an ADR if the repo boundary or security stance changes
+- expect review requests to follow `.github/CODEOWNERS`

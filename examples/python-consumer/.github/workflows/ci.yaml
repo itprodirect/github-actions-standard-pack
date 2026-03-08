@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   ci:
-    uses: your-org/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@main
+    uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@v0.1.0
     with:
       python_version: "3.12"
       install_command: python -m pip install --upgrade pip && python -m pip install build pytest ruff && python -m pip install -e .

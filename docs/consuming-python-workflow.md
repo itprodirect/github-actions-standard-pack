@@ -4,9 +4,9 @@
 
 Use:
 
-`your-org/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@<ref>`
+`itprodirect/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@v0.1.0`
 
-Prefer an immutable tag or commit SHA once this repository starts publishing releases.
+Prefer an immutable tag or commit SHA.
 
 ## Supported inputs
 
@@ -30,7 +30,7 @@ on:
 
 jobs:
   ci:
-    uses: your-org/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@main
+    uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@v0.1.0
     with:
       python_version: "3.12"
       install_command: python -m pip install --upgrade pip && python -m pip install build pytest ruff && python -m pip install -e .
