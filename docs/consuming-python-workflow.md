@@ -44,3 +44,4 @@ jobs:
 - The workflow enables pip caching through `actions/setup-python`.
 - Keep install, lint, test, and build commands explicit in the consumer repo.
 - If your project uses Poetry, uv, or another tool, override the commands deliberately rather than expecting hidden behavior from the reusable workflow.
+- This workflow is exercised in repo CI via `examples/python-consumer`.

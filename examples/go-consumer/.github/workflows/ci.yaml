@@ -1,0 +1,19 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: itprodirect/github-actions-standard-pack/.github/workflows/reusable-go-ci.yaml@v0.1.0
+    with:
+      go_version: "1.24"
+      lint_command: go vet ./...
+      test_command: go test ./...
+      build_command: go build ./...
