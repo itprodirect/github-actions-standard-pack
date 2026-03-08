@@ -12,6 +12,7 @@ This repo should stay boring, explicit, and reusable. Contributions should impro
 - pin any new external action by full commit SHA
 - update examples and docs if the workflow contract changes
 - document whether the changed workflow is example-backed in repo CI or documented-only in v0
+- keep `README.md`, `ROADMAP.md`, and `TEST_STRATEGY.md` aligned when the repo truth model changes
 - run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate-repo.ps1` when changing reusable workflows or examples
 
 ## Pull request expectations

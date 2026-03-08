@@ -3,11 +3,10 @@
 ## Unreleased
 
 - Fix main branch required checks to match the real nested reusable-workflow status names.
-- Add Go example consumer coverage in repo CI.
-- Add Docker example consumer coverage in repo CI and local validation.
-- Add consumer docs for Go, Docker, Terraform, and Playwright workflows.
-- Remove accidental Go cache artifacts from `examples/go-consumer` and tighten ignore rules for local validation output.
-- Tighten local validation cleanup so successful runs do not leave repo junk behind.
+- Harden the v0 baseline so example-backed coverage, local validation behavior, and repo docs match the intended workflow contract.
+- Add Go and Docker example consumer coverage so Node, Python, Go, and Docker are now contract-tested patterns.
+- Add and reconcile consumer docs so the repo truth model distinguishes contract-tested workflows from documented-only workflows.
+- Remove accidental Go cache artifacts from `examples/go-consumer`, tighten ignore rules for local validation output, and keep successful validation runs from leaving tracked junk behind.
 
 ## v0.1.0 - 2026-03-08
 

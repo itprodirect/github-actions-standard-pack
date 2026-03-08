@@ -9,6 +9,8 @@
 3. Validation temp output should stay in ignored locations and be removed on success.
 4. If branch protection is updated, use the exact check names GitHub reports rather than the caller job ids for reusable-workflow jobs.
 
+Maintainer note: Docker local validation is best-effort because it depends on a local daemon. The Docker contract test that counts for repo truth runs in GitHub Actions via `.github/workflows/repo-ci.yaml`.
+
 ### Refresh action pins
 
 1. Review Dependabot pull requests for GitHub Actions updates.
