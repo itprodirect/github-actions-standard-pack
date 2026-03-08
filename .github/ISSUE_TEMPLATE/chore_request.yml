@@ -1,0 +1,20 @@
+name: Chore request
+description: Request maintenance work such as dependency pin refreshes or doc cleanup.
+title: "[Chore]: "
+labels:
+  - chore
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: Requested chore
+      description: Describe the maintenance task.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why now
+      description: Explain the trigger, urgency, or operational reason.
+    validations:
+      required: true

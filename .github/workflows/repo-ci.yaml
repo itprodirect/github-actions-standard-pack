@@ -1,0 +1,73 @@
+name: repo-ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  policy-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+
+      - name: Validate reusable workflow permissions
+        shell: bash
+        run: |
+          workflows=(
+            ".github/workflows/reusable-node-ci.yaml"
+            ".github/workflows/reusable-python-ci.yaml"
+            ".github/workflows/reusable-go-ci.yaml"
+            ".github/workflows/reusable-docker-build.yaml"
+            ".github/workflows/reusable-terraform-ci.yaml"
+            ".github/workflows/reusable-playwright.yaml"
+          )
+
+          for workflow in "${workflows[@]}"; do
+            grep -q '^permissions:$' "$workflow" || {
+              echo "Missing top-level permissions block: $workflow"
+              exit 1
+            }
+          done
+
+      - name: Validate action pinning
+        shell: bash
+        run: |
+          if grep -RInE 'uses:\s+[^@[:space:]]+@v[0-9]+' .github/workflows; then
+            echo "Version tags are not allowed for actions in this repository."
+            exit 1
+          fi
+
+      - name: Validate OIDC stays explicit
+        shell: bash
+        run: |
+          if grep -RInE '^[[:space:]]+id-token:[[:space:]]+write$' .github/workflows/reusable-*.yaml; then
+            echo "Reusable workflows must not enable id-token: write by default."
+            exit 1
+          fi
+
+  node-example:
+    uses: ./.github/workflows/reusable-node-ci.yaml
+    with:
+      node_version: "22"
+      package_manager: npm
+      install_command: npm ci
+      lint_command: npm run lint
+      test_command: npm test
+      build_command: npm run build
+      working_directory: examples/node-consumer
+
+  python-example:
+    uses: ./.github/workflows/reusable-python-ci.yaml
+    with:
+      python_version: "3.12"
+      install_command: python -m pip install --upgrade pip build pytest ruff && python -m pip install -e .
+      lint_command: python -m ruff check .
+      test_command: python -m pytest
+      build_command: python -m build
+      working_directory: examples/python-consumer

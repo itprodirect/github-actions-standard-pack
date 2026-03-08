@@ -1,0 +1,20 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: your-org/github-actions-standard-pack/.github/workflows/reusable-python-ci.yaml@main
+    with:
+      python_version: "3.12"
+      install_command: python -m pip install --upgrade pip && python -m pip install build pytest ruff && python -m pip install -e .
+      lint_command: python -m ruff check .
+      test_command: python -m pytest
+      build_command: python -m build

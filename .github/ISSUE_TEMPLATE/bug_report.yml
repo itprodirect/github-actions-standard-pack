@@ -1,0 +1,31 @@
+name: Bug report
+description: Report a broken workflow, doc gap, or behavior regression.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the failure and expected behavior.
+      placeholder: The node reusable workflow fails during the lint step when...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the consumer workflow snippet, relevant inputs, and logs.
+    validations:
+      required: true
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      options:
+        - Blocks adoption
+        - Workaround exists
+        - Cosmetic
+    validations:
+      required: true

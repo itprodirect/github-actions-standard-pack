@@ -1,0 +1,25 @@
+name: Feature request
+description: Propose a narrowly scoped improvement to the standard pack.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What gap in the current workflows or docs are you trying to solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Keep this concrete and small enough for a reusable workflow repo.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Tradeoffs
+      description: Note complexity, backwards-compatibility, or security implications.

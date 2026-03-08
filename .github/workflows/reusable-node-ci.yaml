@@ -1,0 +1,91 @@
+name: reusable-node-ci
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: Node.js version to install.
+        required: false
+        type: string
+        default: "22"
+      package_manager:
+        description: Package manager used for dependency installation and caching.
+        required: false
+        type: string
+        default: npm
+      install_command:
+        description: Command used to install dependencies.
+        required: false
+        type: string
+        default: npm ci
+      lint_command:
+        description: Command used to lint the project.
+        required: false
+        type: string
+        default: npm run lint --if-present
+      test_command:
+        description: Command used to run tests.
+        required: false
+        type: string
+        default: npm run test --if-present
+      build_command:
+        description: Command used to build the project.
+        required: false
+        type: string
+        default: npm run build --if-present
+      working_directory:
+        description: Directory that contains the project.
+        required: false
+        type: string
+        default: .
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+
+      - name: Validate package manager
+        run: |
+          case "${{ inputs.package_manager }}" in
+            npm|pnpm|yarn) ;;
+            *)
+              echo "Unsupported package_manager: ${{ inputs.package_manager }}"
+              exit 1
+              ;;
+          esac
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: ${{ inputs.package_manager }}
+          cache-dependency-path: |
+            ${{ inputs.working_directory }}/package-lock.json
+            ${{ inputs.working_directory }}/npm-shrinkwrap.json
+            ${{ inputs.working_directory }}/pnpm-lock.yaml
+            ${{ inputs.working_directory }}/yarn.lock
+
+      - name: Enable Corepack
+        if: ${{ inputs.package_manager == 'pnpm' || inputs.package_manager == 'yarn' }}
+        run: corepack enable
+
+      - name: Install dependencies
+        run: ${{ inputs.install_command }}
+
+      - name: Lint
+        run: ${{ inputs.lint_command }}
+
+      - name: Test
+        run: ${{ inputs.test_command }}
+
+      - name: Build
+        run: ${{ inputs.build_command }}

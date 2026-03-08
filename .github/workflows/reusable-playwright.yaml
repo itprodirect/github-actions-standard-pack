@@ -1,0 +1,55 @@
+name: reusable-playwright
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: Node.js version to install.
+        required: false
+        type: string
+        default: "22"
+      install_command:
+        description: Command used to install dependencies.
+        required: false
+        type: string
+        default: npm ci
+      test_command:
+        description: Command used to run Playwright smoke tests.
+        required: false
+        type: string
+        default: npx playwright test --grep @smoke
+      working_directory:
+        description: Directory that contains the Playwright project.
+        required: false
+        type: string
+        default: .
+
+permissions:
+  contents: read
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+
+      - name: Setup Node.js
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: npm
+          cache-dependency-path: ${{ inputs.working_directory }}/package-lock.json
+
+      - name: Install dependencies
+        run: ${{ inputs.install_command }}
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run smoke tests
+        run: ${{ inputs.test_command }}

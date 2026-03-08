@@ -1,0 +1,73 @@
+name: reusable-python-ci
+
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        description: Python version to install.
+        required: false
+        type: string
+        default: "3.12"
+      install_command:
+        description: Command used to install dependencies.
+        required: false
+        type: string
+        default: python -m pip install --upgrade pip build pytest ruff && if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+      lint_command:
+        description: Command used to lint the project.
+        required: false
+        type: string
+        default: python -m ruff check .
+      test_command:
+        description: Command used to run tests.
+        required: false
+        type: string
+        default: python -m pytest
+      build_command:
+        description: Command used to build the project.
+        required: false
+        type: string
+        default: python -m build
+      working_directory:
+        description: Directory that contains the project.
+        required: false
+        type: string
+        default: .
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+
+      - name: Setup Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: ${{ inputs.python_version }}
+          cache: pip
+          cache-dependency-path: |
+            ${{ inputs.working_directory }}/requirements*.txt
+            ${{ inputs.working_directory }}/pyproject.toml
+            ${{ inputs.working_directory }}/poetry.lock
+            ${{ inputs.working_directory }}/setup.cfg
+            ${{ inputs.working_directory }}/setup.py
+
+      - name: Install dependencies
+        run: ${{ inputs.install_command }}
+
+      - name: Lint
+        run: ${{ inputs.lint_command }}
+
+      - name: Test
+        run: ${{ inputs.test_command }}
+
+      - name: Build
+        run: ${{ inputs.build_command }}

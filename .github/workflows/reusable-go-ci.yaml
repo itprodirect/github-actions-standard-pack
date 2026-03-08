@@ -1,0 +1,59 @@
+name: reusable-go-ci
+
+on:
+  workflow_call:
+    inputs:
+      go_version:
+        description: Go version to install.
+        required: false
+        type: string
+        default: "1.24"
+      lint_command:
+        description: Command used to lint the project.
+        required: false
+        type: string
+        default: go vet ./...
+      test_command:
+        description: Command used to run tests.
+        required: false
+        type: string
+        default: go test ./...
+      build_command:
+        description: Command used to build the project.
+        required: false
+        type: string
+        default: go build ./...
+      working_directory:
+        description: Directory that contains the project.
+        required: false
+        type: string
+        default: .
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+
+      - name: Setup Go
+        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417
+        with:
+          go-version: ${{ inputs.go_version }}
+          cache-dependency-path: ${{ inputs.working_directory }}/go.sum
+
+      - name: Lint
+        run: ${{ inputs.lint_command }}
+
+      - name: Test
+        run: ${{ inputs.test_command }}
+
+      - name: Build
+        run: ${{ inputs.build_command }}

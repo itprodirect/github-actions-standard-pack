@@ -1,0 +1,21 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: your-org/github-actions-standard-pack/.github/workflows/reusable-node-ci.yaml@main
+    with:
+      node_version: "22"
+      package_manager: npm
+      install_command: npm ci
+      lint_command: npm run lint
+      test_command: npm test
+      build_command: npm run build
